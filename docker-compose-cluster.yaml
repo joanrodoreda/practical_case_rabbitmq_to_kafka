@@ -1,0 +1,26 @@
+# 3-node RabbitMQ cluster for Test 4 (node failure). Independent from docker-compose.yaml.
+# Nodes discover each other through classic config peer discovery (cluster_rabbitmq.conf).
+name: rabbitmq-cluster   # own project name, so it does not interfere with docker-compose.yaml
+x-rabbit-node: &rabbit-node
+  image: rabbitmq:4-management
+  environment:
+    RABBITMQ_ERLANG_COOKIE: "rabbit-vs-kafka-cookie"   # all nodes must share it
+  volumes:
+    - ./cluster_rabbitmq.conf:/etc/rabbitmq/conf.d/20-cluster.conf:ro
+
+services:
+  rabbit1:
+    <<: *rabbit-node
+    hostname: rabbit1
+    container_name: rabbit1
+    ports: ["5673:5672", "15673:15672"]
+  rabbit2:
+    <<: *rabbit-node
+    hostname: rabbit2
+    container_name: rabbit2
+    ports: ["5674:5672", "15674:15672"]
+  rabbit3:
+    <<: *rabbit-node
+    hostname: rabbit3
+    container_name: rabbit3
+    ports: ["5675:5672", "15675:15672"]

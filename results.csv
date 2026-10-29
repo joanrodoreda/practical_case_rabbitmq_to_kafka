@@ -1,0 +1,10 @@
+Metric,Classic,Quorum,Stream,Kafka
+Test 1: consumer A received,1000,1000,1000,1000
+Test 1: consumer B received,0,0,1000,1000
+Test 2: replay possible / messages replayed,No / 0,No / 0,Yes / 1000,Yes / 1000
+Test 3: publish rate (msg/s),18353,12431,18348,211479
+Test 3: consume rate (msg/s),23027,21335,22181,425258
+"Test 3b: stream protocol, publish WITH confirms (msg/s)",n/a,n/a,138718,n/a
+"Test 3b: stream protocol, consume (msg/s)",n/a,n/a,254773,n/a
+Test 4: readable during node failure,0,1000,1000,not tested
+Test 4: readable after node restart,1000,1000,1000,not tested
